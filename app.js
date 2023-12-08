@@ -2,12 +2,14 @@ require("dotenv").config();
 require("./config/database").connect();
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
 const userController = require("./controller/userController");
 const auth = require("./middleware/auth");
 
 const app = express();
 
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
 app.use(cors());
 
 

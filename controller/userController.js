@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs");
 const User = require("../model/user");
@@ -80,9 +79,9 @@ exports.login_user_post = async (req, res, next) => {
       user.token = token;
 
       //user 
-      res.status(200).json(user);
+      return res.status(200).json(user);
     }
-    res.status(400).send("Invalid Credentials");
+    return res.status(400).send("Invalid Credentials");
 
   } catch (error) {
     console.log(error)

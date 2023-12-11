@@ -8,6 +8,7 @@ const session = require("express-session");
 const userController = require("./controller/userController");
 const postController = require("./controller/postController");
 const commentController = require("./controller/commentController");
+const replyController = require("./controller/replyController");
 const auth = require("./middleware/auth");
 
 
@@ -32,6 +33,9 @@ app.post("/new-post", auth, postController.create_post);
 
 // create comment
 app.post("/posts/:id/new-comment", auth, commentController.create_comment);
+
+//create a comment reply 
+app.post("/comments/:id/new-reply", auth, replyController.new_reply);
 
 // auth
 app.post("/welcome", auth, (req, res) => {

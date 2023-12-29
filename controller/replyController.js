@@ -1,5 +1,24 @@
 const Reply = require("../model/reply");
 
+// handle get all replies 
+exports.get_all_replies = async (req, res, next) => {
+  try {
+    const allReplies = await Reply.find();
+
+    if (allReplies.length <= 0) {
+      res.status(400).json({ error: "No replies found" })
+    }
+
+    res.status(201).send(allReplies);
+  } catch (error) {
+
+    console.error(error);
+    res.status(500).json({ message: error.message })
+  }
+}
+
+
+// handle replies post 
 exports.new_reply = async (req, res, next) => {
   try {
     const userId = req.user.user_id;

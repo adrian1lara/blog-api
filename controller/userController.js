@@ -3,6 +3,26 @@ const bcrypt = require("bcryptjs");
 const User = require("../model/user");
 
 
+// handle get users
+exports.get_users = async (req, res, next) => {
+
+  try {
+    const users = await User.find();
+
+    if (!users) {
+      res.status(400).send("No user found")
+    }
+
+    res.status(200).send(users)
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: error.message })
+  }
+
+}
+
+
 // create user post
 exports.create_user_post = async (req, res, next) => {
   try {

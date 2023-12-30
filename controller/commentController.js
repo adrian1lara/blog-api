@@ -1,5 +1,23 @@
 const Comment = require("../model/comment");
 
+
+exports.get_all_comments = async (req, res, next) => {
+  try {
+    
+    const comments = await Comment.find();
+
+    if(!comments) {
+      res.status(400).send("Comments not found")
+    }
+
+    res.status(200).send(comments)
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({error: message})
+  }
+}
+
 exports.create_comment = async (req, res, next) => {
   try {
 

@@ -1,4 +1,34 @@
 const Post = require("../model/post");
+const Comment = require("../model/comment");
+const Reply = require("../model/reply");
+
+
+
+// delete one post
+exports.delete_one_post = async (req, res, next) => {
+  try {
+    
+    const postId = req.params.id
+
+    if(!postId) {
+      res.status(404).json("Post not found")
+    }
+
+  
+
+    const [ postDeleteResult, commentDeleteResult, repliesDeleteResult ] = await Promise.all([
+      Post.findByIdAndDelete(postId),
+      Comment.deleteMany({post: postId}),
+      Reply.deleteMany({ comment: await Comment.find({post: postId})})
+    ])
+
+    res.status(200).json("Post and associated comments (including replies) deleted successfully")
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({error: message})
+  }
+}
 
 // get all posts
 exports.get_all_post = async (req, res, next) => {
@@ -7,7 +37,7 @@ exports.get_all_post = async (req, res, next) => {
     const posts = await Post.find()
     
     if(!posts) {
-      res.status(400).send("Posts not found")
+      res.status(404).send("Posts not found")
     }
 
     res.status(200).send(posts)

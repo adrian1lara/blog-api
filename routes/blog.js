@@ -9,14 +9,7 @@ const auth = require("../middleware/auth");
 
 
 
-// get one user
-router.get("/blog-api/users/:id", userController.get_one_user);
 
-// get all users
-router.get("/blog-api/users/allUsers", userController.get_users);
-
-// get all posts
-router.get("/blog-api/posts/allPosts", postController.get_all_post);
 
 // register
 router.post("/blog-api/register", userController.create_user_post);
@@ -32,6 +25,18 @@ router.post("/blog-api/new-post", auth, postController.create_post);
 // create comment
 router.post("/blog-api/posts/:id/new-comment", auth, commentController.create_comment);
 
+// get all users
+router.get("/blog-api/users/allUsers", userController.get_users);
+
+// get one user
+router.get("/blog-api/users/:id", userController.get_one_user);
+
+
+
+// get all posts
+router.get("/blog-api/posts/allPosts", postController.get_all_post);
+
+
 //get all comments
 router.get("/blog-api/comments/allComments", commentController.get_all_comments);
 
@@ -40,6 +45,9 @@ router.get("/blog-api/replies/allReplies", replyController.get_all_replies);
 
 //create a comment reply 
 router.post("/blog-api/comments/:id/new-reply", auth, replyController.new_reply);
+
+// delete one post
+router.post("/blog-api/delete/post/:id", auth, postController.delete_one_post);
 
 // auth
 router.post("/welcome", auth, (req, res) => {

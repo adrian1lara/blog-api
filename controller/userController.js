@@ -29,7 +29,7 @@ exports.get_users = async (req, res, next) => {
     const users = await User.find();
 
     if (!users) {
-      res.status(400).send("No user found")
+      res.status(404).send("No user found")
     }
 
     res.status(200).send(users)

@@ -49,6 +49,9 @@ router.post("/blog-api/comments/:id/new-reply", auth, replyController.new_reply)
 // delete one post
 router.post("/blog-api/delete/post/:id", auth, postController.delete_one_post);
 
+// delete one comment 
+router.post("/blog-api/delete/post/:postId/comment/:commentId", auth, commentController.delete_one_comment);
+
 // auth
 router.post("/welcome", auth, (req, res) => {
   res.status(200).send("welcome 🙌")

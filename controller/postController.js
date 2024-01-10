@@ -34,7 +34,7 @@ exports.delete_one_post = async (req, res, next) => {
 exports.get_all_post = async (req, res, next) => {
   try {
     // get the post
-    const posts = await Post.find()
+    const posts = await Post.find().populate('user', 'username')
     
     if(!posts) {
       res.status(404).send("Posts not found")

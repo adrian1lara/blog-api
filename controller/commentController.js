@@ -44,7 +44,7 @@ exports.delete_one_comment = async(req, res, next) => {
 exports.get_all_comments = async (req, res, next) => {
   try {
     
-    const comments = await Comment.find();
+    const comments = await Comment.find().populate('user', 'username');
 
     if(!comments) {
       res.status(400).send("Comments not found")

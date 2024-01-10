@@ -36,6 +36,8 @@ router.get("/blog-api/users/:id", userController.get_one_user);
 // get all posts
 router.get("/blog-api/posts/allPosts", postController.get_all_post);
 
+//get one post
+router.get("/blog-api/post/:id", postController.get_one_post);
 
 //get all comments
 router.get("/blog-api/comments/allComments", commentController.get_all_comments);

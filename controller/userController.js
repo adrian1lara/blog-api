@@ -50,8 +50,8 @@ exports.create_user_post = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     // validate user input
-    if (!(email && password && username)) {
-      res.status(400).send("all input is required")
+    if (!username || !email || !password) {
+      return res.status(400).json({message: "All the inputs are required"});
     }
 
     // validate if user exist in our database
@@ -99,7 +99,7 @@ exports.login_user_post = async (req, res, next) => {
 
     //validate user input 
     if (!(email && password)) {
-      res.status(400).send("All inputs is required");
+      res.status(400).json(  {message: "All inputs are required"});
     }
     // vaidate if user exist in our database 
     const user = await User.findOne({ email });
@@ -120,7 +120,7 @@ exports.login_user_post = async (req, res, next) => {
       //user 
       return res.status(200).json(user);
     }
-    return res.status(400).send("Invalid Credentials");
+    return res.status(400).json({ message: "Invalid Credentials"});
 
   } catch (error) {
     console.log(error)

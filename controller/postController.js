@@ -53,7 +53,7 @@ exports.get_all_post = async (req, res, next) => {
 exports.get_one_post = async (req, res, next) => {
   try {
     const postId = req.params.id
-    const post = await Post.findById(postId)
+    const post = await Post.findById(postId).populate('user', 'username')
 
     if(!post) {
       res.status(404).send("Post not found")

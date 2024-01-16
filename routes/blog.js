@@ -28,8 +28,12 @@ router.post("/blog-api/posts/:id/new-comment", auth, commentController.create_co
 // get all users
 router.get("/blog-api/users/allUsers", userController.get_users);
 
+// get one user by token
+router.get("/blog-api/users/:token", userController.getUserByToken);
+
 // get one user
 router.get("/blog-api/users/:id", userController.get_one_user);
+
 
 
 

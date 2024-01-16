@@ -21,6 +21,38 @@ exports.get_one_user = async (req, res, next) => {
   }
 }
 
+// handle get one user by his token
+exports.getUserByToken = async (req, res, next) => {
+  try {
+    const userToken = req.params.token;
+
+    if (!userToken) {
+      res.status(400).send("Invalid token");
+      return;
+    }
+
+    // Decode the token to get the user_id
+    const decodedToken = jwt.decode(userToken, { complete: true });
+    const userId = decodedToken.payload.user_id;
+
+    // Query the user using the user_id
+    const user = await User.findById(userId);
+
+    if (!user) {
+      console.log(`User not found for user_id: ${userId}`);
+      res.status(404).send("User not found");
+      return;
+    }
+
+    console.log(`User found: ${user}`);
+    res.status(200).send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: error.message });
+  }
+};
+
+
 
 // handle get all users
 exports.get_users = async (req, res, next) => {

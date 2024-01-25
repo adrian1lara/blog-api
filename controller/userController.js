@@ -39,12 +39,10 @@ exports.getUserByToken = async (req, res, next) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      console.log(`User not found for user_id: ${userId}`);
       res.status(404).send("User not found");
       return;
     }
 
-    console.log(`User found: ${user}`);
     res.status(200).send(user);
   } catch (error) {
     console.error(error);

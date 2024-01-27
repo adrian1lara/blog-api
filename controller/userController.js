@@ -89,7 +89,7 @@ exports.create_user_post = async (req, res, next) => {
 
 
     if (oldUser) {
-      return res.status(409).send("User Already exist. Please login")
+      return res.status(409).json({ message :"User Already exist. Please login"})
     }
 
     // Encrypt user in our database
